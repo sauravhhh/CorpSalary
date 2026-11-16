@@ -106,9 +106,6 @@
 
   .pdfbtn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;margin-top:12px;padding:14px 16px;min-height:52px;border-radius:14px;border:2px solid var(--green);background:var(--surface);color:var(--green);font-family:inherit;font-size:15.5px;font-weight:700;cursor:pointer}
   .pdfbtn:active{background:var(--green-soft)}
-  .txtbtn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;margin-top:10px;padding:12px 16px;min-height:48px;border-radius:14px;border:2px solid var(--line);background:var(--surface);color:var(--ink2);font-family:inherit;font-size:14.5px;font-weight:700;cursor:pointer}
-  .txtbtn:active{background:var(--surface2)}
-
   /* Explain — same warm list as PaySlip */
   .explain-intro{background:var(--amber-bg);border:1px solid var(--amber-line);color:var(--amber-ink);border-radius:14px;padding:14px 16px;font-size:14.5px;margin-bottom:14px}
   .explain-intro b{color:inherit}
@@ -231,7 +228,6 @@
     </div>
 
     <button type="button" class="pdfbtn" id="pdfBtn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v10"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Download PDF</button>
-    <button type="button" class="txtbtn" id="downloadBtn">Download break-up (.txt)</button>
     <p class="note">Estimate only. Income tax uses FY 2025-26 slabs with the 4% health &amp; education cess; surcharge on very high incomes is not included. Your actual payslip can differ with joining date, arrears, FBP choices and employer policy. Employer PF and Gratuity sit inside your CTC but are not paid to you monthly — PF goes to your EPF account and gratuity is paid when you leave, normally after 5 years with the company.</p>
   </section>
 
@@ -482,7 +478,7 @@
   tabCalc.addEventListener('click', function () { showTab('calc'); });
   tabExplain.addEventListener('click', function () { showTab('explain'); });
 
-  /* ---- shared plain-text break-up (used by .txt download and PDF fallback) ---- */
+  /* ---- shared plain-text break-up (used as PDF fallback) ---- */
   function breakupLines(r) {
     return [
       'CORPORATE SALARY BREAK-UP (per year, INR)',
@@ -519,8 +515,6 @@
     document.body.removeChild(a);
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
   }
-  $('downloadBtn').addEventListener('click', downloadTxt);
-
   /* ---- PDF download (like PaySlip's Download PDF button) ---- */
   $('pdfBtn').addEventListener('click', function () {
     var r = calc();
